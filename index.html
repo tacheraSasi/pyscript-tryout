@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyScript Currency Converter</title>
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .converter-container {
+            margin-bottom: 20px;
+        }
+        .output {
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Currency Converter: USD to EUR</h1>
+    <div class="converter-container">
+        <label for="usd">Enter amount in USD:</label>
+        <input type="number" id="usd" placeholder="Amount in USD">
+        <button id="convert-btn">Convert</button>
+    </div>
+
+    <div class="output">
+        <p>Converted amount in EUR: <span id="eur-result">--</span></p>
+    </div>
+
+    <h2>Historical Conversion Rates</h2>
+    <div>
+        <py-script>
+            import matplotlib.pyplot as plt
+            import numpy as np
+
+            name = "Tachera Sasi"
+            print(f"My name is {name}")
+
+             Simulated historical rates for USD to EUR
+            days = np.arange(1, 11)
+            rates = [0.90, 0.92, 0.91, 0.93, 0.91, 0.88, 0.87, 0.91, 0.92, 0.90]
+
+            plt.plot(days, rates, marker='o')
+            plt.title("USD to EUR Rates (Past 10 Days)")
+            plt.xlabel("Days")
+            plt.ylabel("Exchange Rate")
+            plt.grid(True)
+            plt.show()
+        </py-script>
+    </div>
+
+    <py-script>
+        # Function to convert USD to EUR
+        def convert_usd_to_eur(usd_amount, exchange_rate=0.92):
+            return round(usd_amount * exchange_rate, 2)
+
+        # Handling button click
+        def on_convert_click(evt):
+            usd_amount = float(Element("usd").element.value)
+            eur_amount = convert_usd_to_eur(usd_amount)
+            Element("eur-result").element.innerText = f"{eur_amount} EUR"
+
+        # Attach the button click event to the Python function
+        Element("convert-btn").element.onclick = on_convert_click
+    </py-script>
+
+</body>
+</html>
